@@ -1,0 +1,102 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/* Reset some default styles */
+body, h1, h2, h3, p {
+  margin: 50;
+  padding: 10;
+}
+
+/* Global styles */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Header styles */
+.header {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.container .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: rgba(19, 16, 16, 0.7);
+  z-index: 3;
+  height: 75px; /* Adjust the height as needed */
+  border-radius: 6px; /* Add rounded corners to give it definition */
+}
+
+.container .app-container {
+  box-sizing: border-box;
+  background-color: rgba(190, 190, 190, 0.9); /* Color for the Container hosting the App */
+  padding: 5px; /* Padding for the container */
+  border-radius: 5px; /* Add rounded corners to give it definition */
+  position: relative;
+  z-index: 2;
+  /* Add any other styles you need for this container */
+}
+
+.header a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.header a:hover {
+  color: #f8f9fa; /* Slightly lighter color on hover */
+}
+
+/* Main content styles */
+.main-content {
+    background: url('src/assets/BG_TrayMRG.jpg') center/cover fixed;
+    z-index: 1;
+    padding: 55px; /* Add padding as needed */
+    opacity: 0.4; /* Adjust the opacity level (0.0 to 1.0) */
+}
+
+.container .main-content {
+  margin: 100 px 100; /* Adjust the margin as needed */
+}
+
+/*button styles */
+.cta button {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cta button:hover {
+  background-color: #0056b3;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #343a40;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 6px; /* Add rounded corners to give it definition */
+}
+
+.footer a:hover {
+  color: #f8f9fa; 
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .logo {
+    width: 100px;
+    height: auto; /* For smaller screens scaling */
+  }
+}

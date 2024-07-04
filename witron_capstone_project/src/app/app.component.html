@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+</head>
+<body>
+
+<form [formGroup]="datasheetForm" (ngSubmit)="onSubmit()">
+
+<table>
+    <tr class="header-row">
+        <th colspan="2">Shift Details</th>
+    </tr>
+    <tr>
+        <!-- DATE -->
+        <td>Date:</td>
+        <td>{{ currentDateString }}</td>
+    </tr>
+    <tr>
+        <!-- SHIFT -->
+        <td>Shift:</td>
+        <td>
+            <select class="shftdet" #selectShift id="shift" formControlName="shift" [(ngModel)]="shiftSelected" required>
+                <option *ngFor="let i of shiftOptions" [ngValue]="i.value">{{ i.label }}</option>
+            </select>
+            <div *ngIf="shiftSelected === shiftOptions[1].label">{{ shiftSelected }}</div>
+        </td>
+    <tr>
+        <!-- CREW -->
+        <td>Crew:</td>
+        <td>
+            <select class="shftdet" #selectCrew id="crew" formControlName="crew" [(ngModel)]="crewSelected" required>
+                <option *ngFor="let j of crewOptions" [ngValue]="j.value">{{ j.label }}</option>
+            </select>
+            <div *ngIf="crewSelected === crewOptions[1].label">{{ crewSelected }}</div>    
+        </td>
+    </tr>
+    <tr>
+        <!-- REPORTER -->
+        <td>Reporter:</td>
+        <td>
+            <input class="shftdet" type="text" id="reporter" formControlName="reporter" placeholder="Name">
+            <div *ngIf="datasheetForm.get('reporter')!.hasError('required') && datasheetForm.get('reporter')!.touched">
+                Required Field.</div>
+        </td>
+    </tr>
+    <tr>
+        <!-- INCIDENTS -->
+        <td>Incidents:</td>
+        <td>
+            <input class="shftdet" type="number" id="incidents" formControlName="incidents" placeholder="Number of incidents">
+            <div *ngIf="datasheetForm.get('incidents')!.hasError('required') && datasheetForm.get('incidents')!.touched">
+            Required Field.</div>
+        </td>
+    </tr>
+    <tr>
+        <!-- INCIDENT DESCRIPTION -->
+        <td></td>
+        <td>
+            <textarea class="shftcom" type="text" id="incidentDesc" formControlName="incidentDesc" placeholder="Incident(s) Description"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <!-- SHIFT DESCRIPTION -->
+        <td>Shift Description:</td>
+        <td>
+            <textarea class="shftcom" type="text" id="shiftDesc" formControlName="shiftDesc" placeholder="Comments"></textarea>
+            <div *ngIf="datasheetForm.get('shiftDesc')!.hasError('required') && datasheetForm.get('shiftDesc')!.touched">
+                Required Field.</div>
+        </td>
+    </tr>
+
+
+
+</table>
+
+
+<!-- <label for="shiftDesc">Shift description:</label> -->
+<br><br>
+
+
+<!-- PRODUCTION PER HOUR (PPH) -->
+<table>
+    <tr>
+        <th></th>
+        <th>COMs</th>
+        <th>Depal</th>
+        <th>AIO</th>
+        <th>Repack</th>
+        <th>Short Comment</th>
+    </tr>
+    <tr class="target-row">
+        <td>Target</td>
+        <td>20 000
+        <td>19 200</td>
+        <td>9 200</td>
+        <td>9 200</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Hour 1</td>
+        <td><input type="number" formControlName="p1a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p1b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p1c"></td>
+        <td><input type="number" formControlName="p1d"></td>
+        <td><input type="text"   formControlName="p1e"></td>
+    </tr>
+    <tr>
+        <td>Hour 2</td>
+        <td><input type="number" formControlName="p2a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p2b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p2c"></td>
+        <td><input type="number" formControlName="p2d"></td>
+        <td><input type="text"   formControlName="p2e"></td>
+    </tr>
+    <tr>
+        <td>Hour 3</td>
+        <td><input type="number" formControlName="p3a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p3b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p3c"></td>
+        <td><input type="number" formControlName="p3d"></td>
+        <td><input type="text"   formControlName="p3e"></td>
+    </tr>
+    <tr>
+        <td>Hour 4</td>
+        <td><input type="number" formControlName="p4a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p4b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p4c"></td>
+        <td><input type="number" formControlName="p4d"></td>
+        <td><input type="text"   formControlName="p4e"></td>
+    </tr>
+    <tr>
+        <td>Hour 5</td>
+        <td><input type="number" formControlName="p5a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p5b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p5c"></td>
+        <td><input type="number" formControlName="p5d"></td>
+        <td><input type="text"   formControlName="p5e"></td>
+    </tr>
+    <tr>
+        <td>Hour 6</td>
+        <td><input type="number" formControlName="p6a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p6b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p6c"></td>
+        <td><input type="number" formControlName="p6d"></td>
+        <td><input type="text"   formControlName="p6e"></td>
+    </tr>
+    <tr>
+        <td>Hour 7</td>
+        <td><input type="number" formControlName="p7a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p7b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p7c"></td>
+        <td><input type="number" formControlName="p7d"></td>
+        <td><input type="text"   formControlName="p7e"></td>
+    </tr>
+    <tr>
+        <td>Hour 8</td>
+        <td><input type="number" formControlName="p8a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p8b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p8c"></td>
+        <td><input type="number" formControlName="p8d"></td>
+        <td><input type="text"   formControlName="p8e"></td>
+    </tr>
+    <tr>
+        <td>Hour 9</td>
+        <td><input type="number" formControlName="p9a" (blur)="math()"></td>
+        <td><input type="number" formControlName="p9b" (blur)="math()"></td>
+        <td><input type="number" formControlName="p9c"></td>
+        <td><input type="number" formControlName="p9d"></td>
+        <td><input type="text"   formControlName="p9e"></td>
+    </tr>
+
+</table>
+
+<!-- SO01 -->
+<br><br>
+<table>
+    <tr class="header-row">
+        <th colspan="4">Case Throughput: Found in SO01</th>
+    </tr>
+
+    <tr>
+        <td>% Locations Occupied (HBW)</td>
+        <td><input type="number" formControlName="so01_1" placeholder="so01_1"></td>
+        <td>% Channels Occupied (HBW)</td>
+        <td><input type="number" formControlName="so01_2" placeholder="so01_2"></td>
+    </tr>
+    <tr>
+        <td>% Locations Occupied (Tray WH)</td>
+        <td><input type="number" formControlName="so01_3" placeholder="so01_3"></td>
+        <td>% Channels Occupied (Tray WH)</td>
+        <td><input type="number" formControlName="so01_4" placeholder="so01_4"></td>
+    </tr>
+    <tr>
+        <td>COM Cases/Hour Average</td>
+        <td><input type="number" class="readonly" formControlName="so01_5" placeholder="so01_5" [(ngModel)]="so01_5Math" readonly></td>
+        <td>COM Total</td>
+        <td><input type="number" class="readonly" formControlName="so01_6" placeholder="so01_6" [(ngModel)]="so01_6Math" readonly></td>
+    </tr>
+    <tr>
+        <td>Depal Cases/Hour Average</td>
+        <td><input type="number" class="readonly" formControlName="so01_7" placeholder="so01_7" [(ngModel)]="so01_7Math" readonly></td>
+        <td>Depal Cases Total</td>
+        <td><input type="number" class="readonly" formControlName="so01_8" placeholder="so01_8" [(ngModel)]="so01_8Math" readonly></td>
+    </tr>
+    <tr>
+        <td>Pallets Received</td>
+        <td><input type="number" formControlName="so01_9" placeholder="so01_9"></td>
+        <td>Inbound Cases</td>
+        <td><input type="number" formControlName="so01_10" placeholder="so01_10"></td>
+    </tr>
+
+<!-- PR04 -->
+<br><br>
+    <tr>
+        <th colspan="4">Fault details: Found in PR04</th>
+    </tr>
+
+    <tr>
+        <td>All Prim</td>
+        <td><input type="number" formControlName="pr04_1" placeholder="pr04_1" (blur)="math()"></td>
+        <td>Number of Failures</td>
+        <td><input type="number" formControlName="pr04_2" placeholder="pr04_2"></td>
+    </tr>
+    <tr>
+        <td>Average Fault Duration</td>
+        <td><input type="number" formControlName="pr04_3" placeholder="pr04_3" [(ngModel)]="pr04_1Math" readonly></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+<!-- MISC -->
+<br><br>
+    <tr>
+        <th colspan="4">Misc Details</th>
+    </tr>
+    <tr>
+        <td>% of MDB Occupied</td>
+        <td><input type="number" formControlName="misc_1" placeholder="misc_1"></td>
+        <td>Average Cases per Pallet</td>
+        <td><input type="number" formControlName="misc_2" placeholder="misc_2"></td>
+    </tr>
+    <tr>
+        <td>Scratched Cases</td>
+        <td><input type="number" formControlName="misc_3" placeholder="misc_3"></td>
+        <td>Missing Cases</td>
+        <td><input type="number" formControlName="misc_4" placeholder="misc_4"></td>
+    </tr>
+    <tr>
+        <td>Blocked Cases</td>
+        <td><input type="number" formControlName="misc_5" placeholder="misc_5"></td>
+        <td>Inbound Reject Pallets</td>
+        <td><input type="number" formControlName="misc_6" placeholder="misc_6"></td>
+    </tr>
+
+<!-- BELOW MISC -->
+    <tr>
+        <td colspan="4"><textarea id="blockedEquip" formControlName="blockedEquip" placeholder="Blocked Equipment Comments"></textarea></td>
+    </tr>
+
+</table>
+
+<br><br><br>
+
+<button type="submit" [disabled]="datasheetForm.invalid">Make the Magic Happen.</button>
+
+<br><br>
+
+
+</form>
+</body>
+</html>
+
+
+<!-- TO DO TASKS -->
+<!-- 
+
+- RENAME CSV OUTPUT WITH REPORT INFORMATION
+- TOOLTIPS OR SIMILAR FOR EACH CELL WITH REPORT INFORMATION
+- EMAIL OUT FUNCTION
+- TARGET ABOVE/BELOW NOTIFYER (CELL COLOUR CHANGE?)
+- MAKE AUTO-CALC CELLS MORE OBVIOUS
+- REPORTER NAME DROPDOWN FROM ARRAY
+- AUSTALIA TYPO FOOTER
+- DATABASE
+- 
+
+ -->
